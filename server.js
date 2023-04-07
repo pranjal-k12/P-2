@@ -1,16 +1,15 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
-const app = express();
+const app = express()
 
-//Middlewares
-app.use((req, res, next) => {
-    console.log("Inside middleware");
-    next();
-})
+const adminRoutes = require('./Routes/admin')
+const shopRoutes = require('./Routes/shop')
 
-app.use((req, res, next) => {
-    res.send('<h1>Hello from express!</h1>')
-})
+app.use(bodyParser.urlencoded({extended : false}));
+
+app.use(adminRoutes);
+app.use(shopRoutes);
 
 app.listen(3000, () => {
     console.log("Server is listening on PORT 3000")
